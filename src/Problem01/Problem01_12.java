@@ -1,5 +1,6 @@
 package Problem01;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Problem01_12 {
@@ -28,33 +29,41 @@ public class Problem01_12 {
     * COOL
     * */
 
-    public String solution(String str){
+    public String solution(int cnt, String str){
 
         String answer = "";
-        int cnt = 1;
+        ArrayList<String> list = new ArrayList<>();
+        int arr[] = new int[cnt];
 
-        str += " ";
-        for(int i=0; i<str.length()-1; i++){
-            if(str.charAt(i) == str.charAt(i+1)){
-                if(cnt == 1) answer += str.charAt(i);
-                cnt ++;
-            }else{
-                if(cnt > 1) answer += String.valueOf(cnt);
-                else{
-                    answer += str.charAt(i);
-                }
-                cnt = 1;
-            }
+        for(int i=0; i<cnt*7; i=i+7){
+           list.add(str.substring(i, i+7));
         }
+
+          for(int j=0; j<list.size();j++){
+              String x = list.get(j);
+              StringBuffer sb = new StringBuffer(x);
+              String rev = sb.reverse().toString(); // 문자열 뒤집기
+
+              int num = 0;
+              for(int i=0; i<7; i++){
+                  String msg = rev.substring(i,i+1);
+                  if("#".equals(msg)){
+                      num += Math.pow(2, i); // 2의 i승
+                  }
+              }
+              answer += (char)num; // 숫자-> 아스키코드 문자로 변환
+      }
+
 
         return answer;
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String input = in.next();
+        int cnt = in.nextInt();
+        String str = in.next();
 
         Problem01_12 p = new Problem01_12();
-        System.out.println(p.solution(input));
+        System.out.println(p.solution(cnt, str));
     }
 }
