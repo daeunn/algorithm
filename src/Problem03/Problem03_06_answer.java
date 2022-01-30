@@ -22,7 +22,6 @@ public class Problem03_06_answer {
                 lt++;
             }
 
-
             answer = Math.max(answer, rt - lt + 1);
         }
 
